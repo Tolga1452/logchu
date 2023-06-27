@@ -5,7 +5,7 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 ## Installation
 
 ```bash
-npm install logchu
+npm install @tolga1452/logchu
 ```
 
 ## Usage
