@@ -11,7 +11,7 @@ npm install @tolga1452/logchu
 ## Usage
 
 ```js
-const { logger, ColorPreset } = require('logchu');
+const { logger, ColorPreset } = require('@tolga1452/logchu');
 
 // Basic usage
 logger.info('Hello, world!');
@@ -29,7 +29,7 @@ logger.custom('Hello, world!', ColorPreset.Cyan);
 ## Randomization
 
 ```js
-const { logger } = require('logchu');
+const { logger } = require('@tolga1452/logchu');
 
 logger.random('Hello, world!', { bold: true }); // Log with random color
 logger.fullRandom('Hello, world!', { inverse: true }); // Fully random log with overwrites
@@ -42,7 +42,7 @@ Supports Hexadecimal, RGB, decimal and ANSI colors.
 ### In Your Code
 
 ```js
-const { logger } = require('logchu');
+const { logger } = require('@tolga1452/logchu');
 
 logger.custom('Hello, world!', { color: '#f44747' });
 ```
@@ -63,7 +63,7 @@ module.exports = {
 3. Use it in your code:
 
 ```js
-const { logger, userColor } = require('logchu');
+const { logger, userColor } = require('@tolga1452/logchu');
 
 logger.custom('Hello, world!', userColor('myCustomColor'));
 ```
@@ -73,7 +73,7 @@ logger.custom('Hello, world!', userColor('myCustomColor'));
 ### In Your Code
 
 ```js
-const { CustomLogger, ColorPreset } = require('logchu');
+const { CustomLogger, ColorPreset } = require('@tolga1452/logchu');
 
 const myCustomLogger = new CustomLogger({
     info: { color: ColorPreset.BackgroundBlue, italic: true },
@@ -92,7 +92,7 @@ myCustomLogger.trolley('Hello, world!', ColorPreset.BackgroundRed);
 2. Add the following code to the file:
 
 ```js
-const { ColorPreset } = require('logchu');
+const { ColorPreset } = require('@tolga1452/logchu');
 
 module.exports = {
     customLoggers: {
