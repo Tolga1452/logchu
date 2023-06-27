@@ -4,7 +4,6 @@
   "description": "Very simple and cool logger for your Node.js projects.",
   "main": "./src",
   "scripts": {
-    "test": "jest",
     "build": "tsc"
   },
   "keywords": [
