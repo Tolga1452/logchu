@@ -2,6 +2,9 @@
 
 Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Supports JavaScript and TypeScript.
 
+## Support My Work!
+<a target="_blank" href="https://donorbox.org/donate-me-49?default_interval=o&amount=5"><img src="https://donorbox.org/images/png-donate/logo-button-small.png" /></a>
+
 ## Installation
 
 ```bash
