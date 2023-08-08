@@ -81,7 +81,7 @@ function customize(text, options) {
         color = fromRGB(color);
     else if ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number')
         color = fromRGB((0, toolbox_js_1.convertToRGB)(color));
-    return typeof options === 'object' ? `${color ?? types_1.ColorPreset.Default}${options.bold ? '\x1b[1m' : ''}${options.underline ? '\x1b[4m' : ''}${options.inverse ? '\x1b[7m' : ''}${options.strikethrough ? '\x1b[9m' : ''}${options.hidden ? '\x1b[8m' : ''}${options.italic ? '\x1b[3m' : ''}${text}${types_1.ColorPreset.Default}` : `${color}${text}${types_1.ColorPreset.Default}`;
+    return typeof options === 'object' ? `${color ?? types_1.ColorPreset.Default}${options.bold ? '\x1b[1m' : ''}${options.underline ? '\x1b[4m' : ''}${options.inverse ? '\x1b[7m' : ''}${options.strikethrough ? '\x1b[9m' : ''}${options.hidden ? '\x1b[8m' : ''}${options.italic ? '\x1b[3m' : ''}${text}${types_1.ColorPreset.Default}` : `${color ?? types_1.ColorPreset.Default}${text}${types_1.ColorPreset.Default}`;
 }
 exports.customize = customize;
 ;
