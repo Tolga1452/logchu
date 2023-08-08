@@ -76,7 +76,7 @@ exports.fromRGB = fromRGB;
  * customize('Hello, World', { color: ColorPreset.Info, bold: true });
  */
 function customize(text, options) {
-    let color = options.color ?? options;
+    let color = options?.color ?? options;
     if (Array.isArray(color))
         color = fromRGB(color);
     else if ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number')

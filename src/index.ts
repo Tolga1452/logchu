@@ -72,7 +72,7 @@ export function fromRGB(rgb: RGB): Color {
  * customize('Hello, World', { color: ColorPreset.Info, bold: true });
  */
 export function customize(text: string, options: Color | CustomizeOptions): string {
-  let color = (options as CustomizeOptions).color ?? options;
+  let color = (options as CustomizeOptions)?.color ?? options;
 
   if (Array.isArray(color)) color = fromRGB(color);
   else if ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number') color = fromRGB(convertToRGB(color as Hexadecimal | Decimal));
