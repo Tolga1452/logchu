@@ -19,12 +19,19 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 | ✅ Rainbow logging |
 | ✅ Config file support |
 | ✅ Built-in colors |
-| ✅ ESM Support |
 
 ## Installation
 
 ```bash
 npm install @tolga1452/logchu
+```
+
+### Warning!
+
+This module is an ES module. If you are using CommonJS, you have to use v2.0.0 or lower. You can install it with the following command:
+
+```bash
+npm install @tolga1452/logchu@2.0.0
 ```
 
 ## Usage
