@@ -28,6 +28,22 @@ export enum ColorPreset {
     Black = '\x1b[38;2;0;0;0m', // Black
     Purple = '\x1b[38;2;128;0;128m', // Purple
     Orange = '\x1b[38;2;255;165;0m', // Orange
+    Pink = '\x1b[38;2;255;192;203m', // Pink
+    Brown = '\x1b[38;2;165;42;42m', // Brown
+    LightBrown = '\x1b[38;2;181;101;29m', // Light brown
+    DarkBrown = '\x1b[38;2;101;67;33m', // Dark brown
+    LightOrange = '\x1b[38;2;255;153;51m', // Light orange
+    DarkOrange = '\x1b[38;2;255;128;0m', // Dark orange
+    LightPink = '\x1b[38;2;255;153;204m', // Light pink
+    DarkPink = '\x1b[38;2;255;51;153m', // Dark pink
+    LightPurple = '\x1b[38;2;153;51;255m', // Light purple
+    DarkPurple = '\x1b[38;2;102;0;204m', // Dark purple
+    DarkBlue = '\x1b[38;2;0;0;204m', // Dark blue
+    DarkGreen = '\x1b[38;2;0;204;0m', // Dark green
+    DarkRed = '\x1b[38;2;204;0;0m', // Dark red
+    DarkYellow = '\x1b[38;2;204;204;0m', // Dark yellow
+    DarkMagenta = '\x1b[38;2;204;0;204m', // Dark magenta
+    DarkCyan = '\x1b[38;2;0;204;204m', // Dark cyan
     BackgroundRed = '\x1b[48;2;255;0;0m', // Red background
     BackgroundGreen = '\x1b[48;2;0;255;0m', // Green background
     BackgroundYellow = '\x1b[48;2;255;255;0m', // Yellow background
@@ -42,7 +58,10 @@ export enum ColorPreset {
     BackgroundLightBlue = '\x1b[48;2;128;192;255m', // Light blue background
     BackgroundLightMagenta = '\x1b[48;2;255;128;255m', // Light magenta background
     BackgroundLightCyan = '\x1b[48;2;128;255;255m', // Light cyan background
-    BackgroundWhite = '\x1b[48;2;255;255;255m' // White background
+    BackgroundWhite = '\x1b[48;2;255;255;255m', // White background
+    BackgroundBlack = '\x1b[48;2;0;0;0m', // Black background
+    BackgroundPurple = '\x1b[48;2;128;0;128m', // Purple background
+    BackgroundOrange = '\x1b[48;2;255;165;0m' // Orange background
 };
 
 /**
