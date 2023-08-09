@@ -11,6 +11,8 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 | ✅ Chalk support |
 | ✅ RGB, ANSI, Decimal, Hexadecimal support |
 | ✅ JavaScript & TypeScript support |
+| ✅ Advanced logging |
+| ✅ Log level support |
 | ✅ Custom colors |
 | ✅ Custom loggers |
 | ✅ Randomized logging |
@@ -27,7 +29,7 @@ npm install @tolga1452/logchu
 ## Usage
 
 ```js
-const { logger, ColorPreset, fromChalk } = require('@tolga1452/logchu');
+const { logger, ColorPreset, fromChalk, LogType } = require('@tolga1452/logchu');
 
 // Basic usage
 logger.info('Hello, world!');
@@ -38,7 +40,7 @@ logger.debug('Hello, world!');
 
 // With styles and color presets
 logger.info('Hello, world!', { bold: true });
-logger.custom('Hello, world!', { color: ColorPreset.Magenta, italic: true });
+logger.custom('Hello, world!', { color: ColorPreset.Magenta, italic: true, type: LogType.Debug });
 logger.custom('Hello, world!', ColorPreset.Cyan);
 
 // With chalk
