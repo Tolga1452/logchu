@@ -1,5 +1,5 @@
 import { CustomLogger } from './CustomLogger';
-import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets } from './types';
+import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType } from './types';
 import { Decimal, Hexadecimal, RGB, convertToRGB, randomNumber } from '@tolga1452/toolbox.js';
 
 let config: Config = {
@@ -46,6 +46,30 @@ export function useColor(id: string): Color {
   if (!config.customColorPresets[id]) throw new Error(`Custom color preset ${id} does not exist.`);
 
   return config.customColorPresets[id];
+};
+
+/**
+ * Get a log type.
+ * @param type The type of the log.
+ * @returns The log type.
+ * @example
+ * getType(LogType.Info);
+ */
+export function getType(type: LogType): string {
+  switch (type) {
+    case LogType.Normal:
+      return 'log';
+    case LogType.Info:
+      return 'info';
+    case LogType.Warning:
+      return 'warn';
+    case LogType.Error:
+      return 'error';
+    case LogType.Debug:
+      return 'debug';
+    default:
+      return 'log';
+  };
 };
 
 /**
@@ -100,7 +124,10 @@ export const logger = {
    * @example
    * log.custom('Hello, World', { color: ColorPreset.Debug, italic: true });
    */
-  custom: (text: string, options?: Color | CustomizeOptions): void => console.log(customize(text, options)),
+  custom: (text: string, options?: Color | CustomizeOptions): void => {
+    if (typeof options === 'object') console[getType((options as CustomizeOptions).type)](customize(text, options));
+    else console.log(customize(text, options));
+  },
   /**
    * A preset for logging info to the console.
    * @param text The text to log.
@@ -108,7 +135,7 @@ export const logger = {
    * @example
    * log.info('Hello, World');
    */
-  info: (text: string, options?: LogOptions): void => console.log(customize(text, { color: ColorPreset.Info, ...options })),
+  info: (text: string, options?: LogOptions): void => console.info(customize(text, { color: ColorPreset.Info, ...options })),
   /**
    * A preset for logging success to the console.
    * @param text The text to log.
@@ -124,7 +151,7 @@ export const logger = {
    * @example
    * log.warning('Hello, World', { bold: true });
    */
-  warning: (text: string, options?: LogOptions): void => console.log(customize(text, { color: ColorPreset.Warning, ...options })),
+  warning: (text: string, options?: LogOptions): void => console.warn(customize(text, { color: ColorPreset.Warning, ...options })),
   /**
    * A preset for logging errors to the console.
    * @param text The text to log.
@@ -132,7 +159,7 @@ export const logger = {
    * @example
    * log.error('Hello, World');
    */
-  error: (text: string, options?: LogOptions): void => console.log(customize(text, { color: ColorPreset.Error, ...options })),
+  error: (text: string, options?: LogOptions): void => console.error(customize(text, { color: ColorPreset.Error, ...options })),
   /**
    * A preset for logging debug to the console.
    * @param text The text to log.
@@ -140,7 +167,7 @@ export const logger = {
    * @example
    * log.debug('Hello, World');
    */
-  debug: (text: string, options?: LogOptions): void => console.log(customize(text, { color: ColorPreset.Debug, ...options })),
+  debug: (text: string, options?: LogOptions): void => console.debug(customize(text, { color: ColorPreset.Debug, ...options })),
   /**
    * A preset for logging text to the console with a random color.
    * @param text The text to log.

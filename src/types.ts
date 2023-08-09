@@ -51,6 +51,17 @@ export enum ColorPreset {
 export type Color = `\x1b[${string}m` | RGB | Hexadecimal | Decimal;
 
 /**
+ * Log types
+ */
+export enum LogType {
+    Normal = 0,
+    Info = 1,
+    Warning = 2,
+    Error = 3,
+    Debug = 4
+};
+
+/**
  * Log options
  */
 export interface LogOptions {
@@ -105,6 +116,14 @@ export interface LogOptions {
 };
 
 export interface CustomizeOptions extends LogOptions {
+    /**
+     * Type of the log.
+     * @default
+     * LogType.Normal
+     * @example
+     * log('Hello, World', { type: LogType.Info });
+     */
+    type?: LogType;
     /**
      * Color to apply to the text.
      * @default

@@ -1,4 +1,5 @@
 const { ColorPreset } = require("./src");
+const { LogType } = require("./src/types");
 
 module.exports = {
     customLoggers: {
@@ -6,7 +7,8 @@ module.exports = {
             info: {
                 bold: true,
                 italic: true,
-                color: ColorPreset.BackgroundCyan
+                color: ColorPreset.BackgroundCyan,
+                type: LogType.Info
             },
             alsoWorksWithCustomColors: {
                 color: '$custom:testColor'
