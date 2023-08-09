@@ -1,5 +1,5 @@
 import { CustomLogger } from './CustomLogger';
-import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType } from './types';
+import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType, WriteOptions } from './types';
 import { Decimal, Hexadecimal, RGB, convertToRGB, randomNumber } from '@tolga1452/toolbox.js';
 
 let config: Config = {
@@ -84,6 +84,16 @@ export function fromRGB(rgb: RGB): Color {
 };
 
 /**
+ * Get a color to log with.
+ * @param color The color to log with.
+ * @returns The color to log with.
+ */
+export function getColor(color: Color): Color {
+  if (Array.isArray(color)) return fromRGB(color);
+  else if ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number') return fromRGB(convertToRGB(color as Hexadecimal | Decimal));
+};
+
+/**
  * Customize the text with the given options.
  * @param text The text to customize.
  * @param options The color or options to apply to the text.
@@ -98,10 +108,23 @@ export function fromRGB(rgb: RGB): Color {
 export function customize(text: string, options: Color | CustomizeOptions): string {
   let color = (options as CustomizeOptions)?.color ?? options;
 
-  if (Array.isArray(color)) color = fromRGB(color);
-  else if ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number') color = fromRGB(convertToRGB(color as Hexadecimal | Decimal));
+  if (Array.isArray(color) || ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number')) color = getColor(color);
 
   return typeof options === 'object' ? `${(typeof color === 'object' ? (options as CustomizeOptions)?.color : color) ?? ColorPreset.Default}${(options as CustomizeOptions).bold ? '\x1b[1m' : ''}${(options as CustomizeOptions).underline ? '\x1b[4m' : ''}${(options as CustomizeOptions).inverse ? '\x1b[7m' : ''}${(options as CustomizeOptions).strikethrough ? '\x1b[9m' : ''}${(options as CustomizeOptions).hidden ? '\x1b[8m' : ''}${(options as CustomizeOptions).italic ? '\x1b[3m' : ''}${text}${ColorPreset.Default}` : `${color ?? ColorPreset.Default}${text}${ColorPreset.Default}`;
+};
+
+/**
+ * Write an advanced log.
+ */
+export function write(defaultConfig: CustomizeOptions, ...options: WriteOptions[]) {
+  let text = '';
+
+  for (let option of options) {
+    if (option.useDefault) text += customize(option.text, defaultConfig);
+    else text += customize(option.text, option);
+  };
+
+  console.log(text);
 };
 
 export const logger = {

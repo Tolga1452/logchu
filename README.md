@@ -35,6 +35,32 @@ logger.random('Hello, world!', { bold: true }); // Log with random color
 logger.fullRandom('Hello, world!', { inverse: true }); // Fully random log with overwrites
 ```
 
+## Advanced Logs
+
+```js
+const { write, ColorPreset } = require('@tolga1452/logchu');
+
+write(
+    {
+        color: ColorPreset.LightGray,
+        italic: true
+    },
+    {
+        text: 'First one was default config ',
+        color: ColorPreset.LightGreen
+    },
+    {
+        text: 'this is ',
+        useDefault: true
+    },
+    {
+        text: 'awesome!',
+        color: ColorPreset.LightCyan,
+        bold: true
+    }
+);
+```
+
 ## Custom Colors
 
 Supports Hexadecimal, RGB, decimal and ANSI colors.

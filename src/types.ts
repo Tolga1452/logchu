@@ -170,3 +170,23 @@ export interface Config {
      */
     customLoggers?: ConfigCustomLoggers;
 };
+
+/**
+ * Write options
+ */
+export interface WriteOptions extends CustomizeOptions {
+    /**
+     * Text to write.
+     * @example
+     * write({ text: 'Hello, World' });
+     */
+    text: string;
+    /**
+     * Whether or not to use default configuration.
+     * @default
+     * false
+     * @example
+     * write({ text: 'Hello, World', useDefault: false });
+     */
+    useDefault?: boolean;
+};

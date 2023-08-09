@@ -1,4 +1,4 @@
-import { ColorPreset, CustomLogger, logger, useColor, useLogger } from '.';
+import { ColorPreset, CustomLogger, logger, useColor, useLogger, write } from '.';
 
 logger.custom('--- Built-in ---', { color: ColorPreset.Yellow, bold: true, inverse: true });
 
@@ -39,3 +39,25 @@ logger.custom('--- Custom Colors v2 ---', { color: ColorPreset.Yellow, bold: tru
 
 logger.custom('Hello, World', '#639dff');
 myCustomLoggerFromConfig.hexTest('Hello, World');
+
+logger.custom('--- Advanced Log ---', { color: ColorPreset.Yellow, bold: true, inverse: true });
+
+write(
+    {
+        color: ColorPreset.LightGray,
+        italic: true
+    },
+    {
+        text: 'First one was default config ',
+        color: ColorPreset.LightGreen
+    },
+    {
+        text: 'this is ',
+        useDefault: true
+    },
+    {
+        text: 'awesome!',
+        color: ColorPreset.LightCyan,
+        bold: true
+    }
+);
