@@ -27,7 +27,7 @@ npm install @tolga1452/logchu
 ## Usage
 
 ```js
-const { logger, ColorPreset } = require('@tolga1452/logchu');
+const { logger, ColorPreset, fromChalk } = require('@tolga1452/logchu');
 
 // Basic usage
 logger.info('Hello, world!');
@@ -40,6 +40,11 @@ logger.debug('Hello, world!');
 logger.info('Hello, world!', { bold: true });
 logger.custom('Hello, world!', { color: ColorPreset.Magenta, italic: true });
 logger.custom('Hello, world!', ColorPreset.Cyan);
+
+// With chalk
+const chalk = require('chalk');
+
+logger.custom('Hello, world!', chalk.dim.red(' ')); // You have to use a single space character as text for chalk
 ```
 
 ## Randomization
