@@ -6,7 +6,7 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 
 | Feature |
 | --- |
-| ✅ Fully Customizable |
+| ✅ Fully customizable |
 | ✅ Basic logging |
 | ✅ Chalk support |
 | ✅ RGB, ANSI, Decimal, Hexadecimal support |
@@ -20,7 +20,7 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 
 ## Installation
 
-```npm
+```bash
 npm install @tolga1452/logchu
 ```
 
