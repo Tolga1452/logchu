@@ -9,14 +9,10 @@ let config: Config = {
 let configDir: string = `${process.cwd()}\\logchu.config.js`;
 
 /**
- * Use a custom logger.
- * @param id The id of the custom logger.
- * @returns The custom logger.
+ * Load the config file.
  */
-export function useLogger(id: string): CustomLogger {
-  config = require(configDir).default ?? require(configDir);
-
-  if (!config.customLoggers[id]) throw new Error(`Custom logger ${id} does not exist.`);
+export async function loadConfig(): Promise<void> {
+  config = await import(configDir);
 
   for (var customLogger in config.customLoggers) {
     for (var preset in config.customLoggers[customLogger]) {
@@ -31,6 +27,15 @@ export function useLogger(id: string): CustomLogger {
       };
     };
   };
+};
+
+/**
+ * Use a custom logger.
+ * @param id The id of the custom logger.
+ * @returns The custom logger.
+ */
+export function useLogger(id: string): CustomLogger {
+  if (!config.customLoggers[id]) throw new Error(`Custom logger ${id} does not exist.`);
 
   return new CustomLogger(config.customLoggers[id]);
 };
@@ -41,8 +46,6 @@ export function useLogger(id: string): CustomLogger {
  * @returns The custom color preset.
  */
 export function useColor(id: string): Color {
-  config = require(configDir);
-
   if (!config.customColorPresets[id]) throw new Error(`Custom color preset ${id} does not exist.`);
 
   return config.customColorPresets[id];
@@ -258,18 +261,4 @@ export const logger = {
 
     return console.log(customize(rainbow, options ?? '' as Color as CustomizeOptions));
   }
-};
-
-export {
-  Color,
-  ColorPreset,
-  CustomizeOptions,
-  LogOptions,
-  CustomLoggerPresets,
-  CustomLogger,
-  ConfigCustomLoggers,
-  Config,
-  ConfigCustomColorPresets,
-  LogType,
-  WriteOptions
 };
