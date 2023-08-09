@@ -258,5 +258,7 @@ export {
   CustomLogger,
   ConfigCustomLoggers,
   Config,
-  ConfigCustomColorPresets
+  ConfigCustomColorPresets,
+  LogType,
+  WriteOptions
 };
