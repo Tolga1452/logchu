@@ -14,7 +14,7 @@ let configDir: string = `${process.cwd()}\\logchu.config.js`;
  * @returns The custom logger.
  */
 export function useLogger(id: string): CustomLogger {
-  config = require(configDir);
+  config = require(configDir).default ?? require(configDir);
 
   if (!config.customLoggers[id]) throw new Error(`Custom logger ${id} does not exist.`);
 
@@ -77,7 +77,7 @@ export function customize(text: string, options: Color | CustomizeOptions): stri
   if (Array.isArray(color)) color = fromRGB(color);
   else if ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number') color = fromRGB(convertToRGB(color as Hexadecimal | Decimal));
 
-  return typeof options === 'object' ? `${color ?? ColorPreset.Default}${(options as CustomizeOptions).bold ? '\x1b[1m' : ''}${(options as CustomizeOptions).underline ? '\x1b[4m' : ''}${(options as CustomizeOptions).inverse ? '\x1b[7m' : ''}${(options as CustomizeOptions).strikethrough ? '\x1b[9m' : ''}${(options as CustomizeOptions).hidden ? '\x1b[8m' : ''}${(options as CustomizeOptions).italic ? '\x1b[3m' : ''}${text}${ColorPreset.Default}` : `${color ?? ColorPreset.Default}${text}${ColorPreset.Default}`;
+  return typeof options === 'object' ? `${(typeof color === 'object' ? (options as CustomizeOptions)?.color : color) ?? ColorPreset.Default}${(options as CustomizeOptions).bold ? '\x1b[1m' : ''}${(options as CustomizeOptions).underline ? '\x1b[4m' : ''}${(options as CustomizeOptions).inverse ? '\x1b[7m' : ''}${(options as CustomizeOptions).strikethrough ? '\x1b[9m' : ''}${(options as CustomizeOptions).hidden ? '\x1b[8m' : ''}${(options as CustomizeOptions).italic ? '\x1b[3m' : ''}${text}${ColorPreset.Default}` : `${color ?? ColorPreset.Default}${text}${ColorPreset.Default}`;
 };
 
 export const logger = {
