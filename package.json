@@ -12,7 +12,17 @@
     "js",
     "typescript",
     "ts",
-    "log"
+    "log",
+    "color",
+    "ansi",
+    "rgb",
+    "hex",
+    "decimal",
+    "logger",
+    "logchu",
+    "chalk",
+    "rainbow",
+    "console"
   ],
   "author": "✨Tolgchu✨#1452",
   "license": "CC-BY-NC-ND-4.0",
