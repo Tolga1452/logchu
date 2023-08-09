@@ -19,6 +19,7 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 | ✅ Rainbow logging |
 | ✅ Config file support |
 | ✅ Built-in colors |
+| ✅ ESM Support |
 
 ## Installation
 
@@ -112,7 +113,9 @@ module.exports = {
 3. Use it in your code:
 
 ```js
-const { logger, userColor } = require('@tolga1452/logchu');
+const { logger, userColor, loadConfig } = require('@tolga1452/logchu');
+
+await loadConfig();
 
 logger.custom('Hello, world!', userColor('myCustomColor'));
 ```
@@ -160,7 +163,9 @@ module.exports = {
 3. Use it in your code:
 
 ```js
-const { useLogger } = require('logchu');
+const { useLogger, loadConfig } = require('logchu');
+
+await loadConfig();
 
 const myCustomLogger = useLogger('myCustomLogger');
 
