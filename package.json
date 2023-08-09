@@ -1,12 +1,11 @@
 {
   "name": "@tolga1452/logchu",
-  "version": "3.0.1",
+  "version": "2.0.1",
   "description": "Very simple and cool logger for your Node.js projects.",
   "main": "./src/index.js",
   "scripts": {
     "build": "tsc"
   },
-  "type": "module",
   "types": "./src",
   "keywords": [
     "javascript",
