@@ -262,17 +262,3 @@ export const logger = {
     return console.log(customize(rainbow, options ?? '' as Color as CustomizeOptions));
   }
 };
-
-export {
-  Color,
-  ColorPreset,
-  CustomizeOptions,
-  LogOptions,
-  CustomLoggerPresets,
-  CustomLogger,
-  ConfigCustomLoggers,
-  Config,
-  ConfigCustomColorPresets,
-  LogType,
-  WriteOptions
-};
