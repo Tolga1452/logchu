@@ -1,4 +1,4 @@
-import { ColorPreset, CustomLogger, logger, useColor, useLogger, write } from '.';
+import { ColorPreset, CustomLogger, fromChalk, logger, useColor, useLogger, write } from '.';
 
 logger.custom('--- Built-in ---', { color: ColorPreset.Yellow, bold: true, inverse: true });
 

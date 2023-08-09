@@ -127,6 +127,17 @@ export function write(defaultConfig: CustomizeOptions, ...options: WriteOptions[
   console.log(text);
 };
 
+/**
+ * Use a color from chalk.
+ * @param color The color to use.
+ * @returns The color from chalk.
+ * @example
+ * fromChalk(chalk.red(' '));
+ */
+export function fromChalk(color: string): Color {
+  return color.split(' ')[0] as Color;
+};
+
 export const logger = {
   /**
    * Log the text to the console.
