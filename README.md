@@ -44,7 +44,7 @@ logger.custom('Hello, world!', ColorPreset.Cyan);
 // With chalk
 const chalk = require('chalk');
 
-logger.custom('Hello, world!', chalk.dim.red(' ')); // You have to use a single space character as text for chalk
+logger.custom('Hello, world!', fromChalk(chalk.dim.red(' '))); // You have to use a single space character as text for chalk
 ```
 
 ## Randomization
