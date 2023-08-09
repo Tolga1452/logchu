@@ -2,9 +2,25 @@
 
 Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Supports JavaScript and TypeScript.
 
+## Features
+
+| Feature |
+| --- |
+| ✅ Fully Customizable |
+| ✅ Basic logging |
+| ✅ Chalk support |
+| ✅ RGB, ANSI, Decimal, Hexadecimal support |
+| ✅ JavaScript & TypeScript support |
+| ✅ Custom colors |
+| ✅ Custom loggers |
+| ✅ Randomized logging |
+| ✅ Rainbow logging |
+| ✅ Config file support |
+| ✅ Built-in colors |
+
 ## Installation
 
-```bash
+```npm
 npm install @tolga1452/logchu
 ```
 

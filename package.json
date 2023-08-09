@@ -22,7 +22,8 @@
     "logchu",
     "chalk",
     "rainbow",
-    "console"
+    "console",
+    "custom"
   ],
   "author": "✨Tolgchu✨#1452",
   "license": "CC-BY-NC-ND-4.0",
