@@ -6,7 +6,7 @@ let config: Config = {
   customColorPresets: {},
   customLoggers: {}
 };
-let configDir: string = `${process.cwd()}\\logchu.config.js`;
+let configDir: string = `${process.cwd()}/logchu.config.js`;
 
 /**
  * Use a custom logger.
