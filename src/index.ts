@@ -1,6 +1,7 @@
 import { CustomLogger } from './CustomLogger';
 import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType, WriteOptions, CustomLoggerPresetsWithoutLogic } from './types';
 import { Decimal, Hexadecimal, RGB, convertToRGB, randomNumber } from '@tolga1452/toolbox.js';
+import { appendFileSync, existsSync, writeFileSync } from 'node:fs';
 
 let config: Config = {
   customColorPresets: {},
@@ -138,6 +139,24 @@ export function fromChalk(color: string): Color {
   return color.split(' ')[0] as Color;
 };
 
+export function log(originalText: string, text: string, type: LogType): void {
+  let config: Config = {};
+
+  try {
+    config = require(configDir);
+  } catch (error) {
+    config = {};
+  };
+
+  if (config.logFile) {
+    if (!existsSync(config.logFile)) writeFileSync(config.logFile, '');
+
+    appendFileSync(config.logFile, `[${new Date().toUTCString()}] ${originalText}\n`);
+  };
+
+  console[getType(type)](text);
+};
+
 export const logger = {
   /**
    * Log the text to the console.
@@ -146,7 +165,7 @@ export const logger = {
    * @example
    * log.default('Hello, World', { bold: true });
    */
-  default: (text: string, options?: LogOptions): void => console.log(customize(text, options)),
+  default: (text: string, options?: LogOptions): void => log(text, customize(text, options), LogType.Normal),
   /**
    * Log the text to the console with the given color.
    * @param text The text to log.
@@ -159,8 +178,8 @@ export const logger = {
    * log.custom('Hello, World', { color: ColorPreset.Debug, italic: true });
    */
   custom: (text: string, options?: Color | CustomizeOptions): void => {
-    if (typeof options === 'object') console[getType((options as CustomizeOptions).type)](customize(text, options));
-    else console.log(customize(text, options));
+    if (typeof options === 'object') log(text, customize(text, options), (options as CustomizeOptions).type);
+    else log(text, customize(text, options), LogType.Normal);
   },
   /**
    * A preset for logging info to the console.
@@ -169,7 +188,7 @@ export const logger = {
    * @example
    * log.info('Hello, World');
    */
-  info: (text: string, options?: LogOptions): void => console.info(customize(text, { color: ColorPreset.Info, ...options })),
+  info: (text: string, options?: LogOptions): void => log(text, customize(text, { color: ColorPreset.Info, ...options }), LogType.Info),
   /**
    * A preset for logging success to the console.
    * @param text The text to log.
@@ -177,7 +196,7 @@ export const logger = {
    * @example
    * log.success('Hello, World');
    */
-  success: (text: string, options?: LogOptions): void => console.log(customize(text, { color: ColorPreset.Success, ...options })),
+  success: (text: string, options?: LogOptions): void => log(text, customize(text, { color: ColorPreset.Success, ...options }), LogType.Normal),
   /**
    * A preset for logging warnings to the console.
    * @param text The text to log.
@@ -185,7 +204,7 @@ export const logger = {
    * @example
    * log.warning('Hello, World', { bold: true });
    */
-  warning: (text: string, options?: LogOptions): void => console.warn(customize(text, { color: ColorPreset.Warning, ...options })),
+  warning: (text: string, options?: LogOptions): void => log(text, customize(text, { color: ColorPreset.Warning, ...options }), LogType.Warning),
   /**
    * A preset for logging errors to the console.
    * @param text The text to log.
@@ -193,7 +212,7 @@ export const logger = {
    * @example
    * log.error('Hello, World');
    */
-  error: (text: string, options?: LogOptions): void => console.error(customize(text, { color: ColorPreset.Error, ...options })),
+  error: (text: string, options?: LogOptions): void => log(text, customize(text, { color: ColorPreset.Error, ...options }), LogType.Error),
   /**
    * A preset for logging debug to the console.
    * @param text The text to log.
@@ -201,7 +220,7 @@ export const logger = {
    * @example
    * log.debug('Hello, World');
    */
-  debug: (text: string, options?: LogOptions): void => console.debug(customize(text, { color: ColorPreset.Debug, ...options })),
+  debug: (text: string, options?: LogOptions): void => log(text, customize(text, { color: ColorPreset.Debug, ...options }), LogType.Debug),
   /**
    * A preset for logging text to the console with a random color.
    * @param text The text to log.
@@ -216,7 +235,7 @@ export const logger = {
       b: randomNumber(0, 255)
     };
 
-    return console.log(customize(text, { color: `\x1b[38;2;${color.r};${color.g};${color.b}m`, ...options }));
+    return log(text, customize(text, { color: `\x1b[38;2;${color.r};${color.g};${color.b}m`, ...options }), LogType.Normal);
   },
   /**
    * A preset for logging text to the console with a random color and random options.
@@ -233,7 +252,7 @@ export const logger = {
       b: randomNumber(0, 255)
     };
 
-    return console.log(customize(text, Object.assign({
+    return log(text, customize(text, Object.assign({
       color: `\x1b[38;2;${color.r};${color.g};${color.b}m`,
       bold: randomNumber(0, 1),
       underline: randomNumber(0, 1),
@@ -241,7 +260,7 @@ export const logger = {
       strikethrough: randomNumber(0, 1),
       hidden: randomNumber(0, 1),
       italic: randomNumber(0, 1)
-    }, options as CustomizeOptions)));
+    }, options as CustomizeOptions)), LogType.Normal);
   },
   /**
    * A preset for logging text to the console with a rainbow color.
@@ -256,7 +275,7 @@ export const logger = {
 
     for (var i = 0; i < text.length; i++) rainbow += `${colors[i % colors.length]}${text[i]}`;
 
-    return console.log(customize(rainbow, options ?? '' as Color as CustomizeOptions));
+    return log(text, customize(rainbow, options ?? '' as Color as CustomizeOptions), LogType.Normal);
   }
 };
 

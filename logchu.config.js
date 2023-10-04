@@ -21,5 +21,6 @@ module.exports = {
     customColorPresets: {
         testColor: '\x1b[38;2;0;0;0m',
         hex: '#f44747'
-    }
+    },
+    logFile: 'test.log'
 };

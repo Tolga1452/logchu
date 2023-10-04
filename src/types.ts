@@ -196,6 +196,10 @@ export interface Config {
      * Custom loggers
      */
     customLoggers?: ConfigCustomLoggers;
+    /**
+     * The path to the log file.
+     */
+    logFile?: string;
 };
 
 /**
