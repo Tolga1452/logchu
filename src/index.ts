@@ -19,7 +19,7 @@ export function useLogger(id: string): CustomLogger {
   if (!config.customLoggers[id]) throw new Error(`Custom logger ${id} does not exist.`);
 
   for (var customLogger in config.customLoggers) {
-    for (var preset in config.customLoggers[customLogger]) {
+    if (typeof config.customLoggers[customLogger] !== 'function') for (var preset in config.customLoggers[customLogger]) {
       let color: Color = (config.customLoggers[customLogger] as CustomLoggerPresetsWithoutLogic)[preset].color;
 
       if (typeof color === 'string' && color.startsWith('$custom:')) {
