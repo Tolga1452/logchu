@@ -183,3 +183,14 @@ const myCustomLogger = useLogger('myCustomLogger');
 
 myCustomLogger.info('Hello, world!');
 ```
+
+## Saving Logs
+
+1. Create a file named `logchu.config.js` in your project root.
+2. Add the following code to the file:
+
+```js
+module.exports = {
+    logFile: './logs.txt'
+};
+```

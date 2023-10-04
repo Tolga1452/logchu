@@ -151,7 +151,7 @@ export function log(originalText: string, text: string, type: LogType): void {
   if (config.logFile) {
     if (!existsSync(config.logFile)) writeFileSync(config.logFile, '');
 
-    appendFileSync(config.logFile, `[${new Date().toUTCString()}] ${originalText}\n`);
+    appendFileSync(config.logFile, `[${new Date().toUTCString()}] ${getType(type).toUpperCase()} > ${originalText}\n`);
   };
 
   console[getType(type)](text);
