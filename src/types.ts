@@ -159,6 +159,14 @@ export interface CustomizeOptions extends LogOptions {
  * Custom logger presets
  */
 export interface CustomLoggerPresets {
+    _logic?: (log: LogObject) => void;
+    [name: string]: CustomizeOptions | ((log: LogObject) => void);
+};
+
+/**
+ * Custom logger presets
+ */
+export interface CustomLoggerPresetsWithoutLogic {
     [name: string]: CustomizeOptions;
 };
 
@@ -208,4 +216,26 @@ export interface WriteOptions extends CustomizeOptions {
      * write({ text: 'Hello, World', useDefault: false });
      */
     useDefault?: boolean;
+};
+
+/**
+ * Log object for custom logger logic
+ */
+export interface LogObject {
+    /**
+     * Text to log
+     */
+    text: string;
+    /**
+     * Log options
+     */
+    options?: CustomizeOptions | Color;
+    /**
+     * Date of the log
+     */
+    date: Date;
+    /**
+     * Type of the log
+     */
+    type: string;
 };

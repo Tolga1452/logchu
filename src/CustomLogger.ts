@@ -1,5 +1,5 @@
 import { logger } from '.';
-import { Color, CustomLoggerPresets, CustomizeOptions } from './types';
+import { Color, CustomLoggerPresets, CustomizeOptions, LogObject } from './types';
 
 /**
  * Custom logger
@@ -13,6 +13,11 @@ import { Color, CustomLoggerPresets, CustomizeOptions } from './types';
  */
 export class CustomLogger {
     /**
+     * Custom logger logic
+     * @private
+     */
+    #logic: (log: LogObject) => void;
+    /**
      * A custom logger preset
      */
     [id: string]: (text: string, options?: CustomizeOptions) => void;
@@ -21,7 +26,20 @@ export class CustomLogger {
      * Create a new custom logger
      * @param presets Custom logger presets
      */
-    constructor(presets: CustomLoggerPresets) {
-        Object.entries(presets).forEach(([id, presetOptions]) => this[id] = (text: string, options?: CustomizeOptions): void => logger.custom(text, Object.assign(presetOptions, options ?? {})));
+    constructor(presets: CustomLoggerPresets, overwrite: boolean = false) {
+        this.#logic = presets._logic as (log: LogObject) => void;
+
+        delete presets._logic;
+
+        Object.entries(presets).forEach(([id, presetOptions]) => this[id] = (text: string, options?: CustomizeOptions): void => {
+            if (this.#logic) this.#logic({
+                text,
+                options,
+                date: new Date(),
+                type: id
+            });
+            
+            if (!overwrite) logger.custom(text, Object.assign(presetOptions, options ?? {}))
+        });
     };
 };

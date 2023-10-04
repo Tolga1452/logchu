@@ -19,6 +19,7 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 | ✅ Rainbow logging |
 | ✅ Config file support |
 | ✅ Built-in colors |
+| ✅ Custom logger logic support |
 
 ## Installation
 
@@ -60,6 +61,8 @@ logger.fullRandom('Hello, world!', { inverse: true }); // Fully random log with 
 
 ## Advanced Logs
 
+### `write` Methd
+
 ```js
 const { write, ColorPreset } = require('@tolga1452/logchu');
 
@@ -82,6 +85,20 @@ write(
         bold: true
     }
 );
+```
+
+### Custom Logger Logic
+
+```js
+const { CustomLogger } = require('@tolga1452/logchu');
+
+const myCustomLogger = new CustomLogger({
+    _logic: log => {
+        console.log('Put your custom logic here.');
+        console.log('This will be runned along with the default logic.');
+    },
+    info: { color: ColorPreset.BackgroundBlue, italic: true }
+}, true); // true for overwrite default logic
 ```
 
 ## Custom Colors

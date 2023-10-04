@@ -1,5 +1,5 @@
 import { CustomLogger } from './CustomLogger';
-import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType, WriteOptions } from './types';
+import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType, WriteOptions, CustomLoggerPresetsWithoutLogic } from './types';
 import { Decimal, Hexadecimal, RGB, convertToRGB, randomNumber } from '@tolga1452/toolbox.js';
 
 let config: Config = {
@@ -20,14 +20,14 @@ export function useLogger(id: string): CustomLogger {
 
   for (var customLogger in config.customLoggers) {
     for (var preset in config.customLoggers[customLogger]) {
-      let color: Color = config.customLoggers[customLogger][preset].color;
+      let color: Color = (config.customLoggers[customLogger] as CustomLoggerPresetsWithoutLogic)[preset].color;
 
       if (typeof color === 'string' && color.startsWith('$custom:')) {
         color = color.split(':')[1] as Color;
 
         if (!config.customColorPresets[color as string]) throw new Error(`Custom color preset ${color} does not exist.`);
 
-        config.customLoggers[customLogger][preset].color = config.customColorPresets[color as string];
+        (config.customLoggers[customLogger] as CustomLoggerPresetsWithoutLogic)[preset].color = config.customColorPresets[color as string];
       };
     };
   };
