@@ -1,4 +1,4 @@
-const { ColorPreset } = require("./src");
+const { ColorPreset, Watcher } = require("./src");
 const { LogType } = require("./src/types");
 
 module.exports = {
@@ -22,5 +22,6 @@ module.exports = {
         testColor: '\x1b[38;2;0;0;0m',
         hex: '#f44747'
     },
-    logFile: 'test.log'
+    logFile: 'test.log',
+    watcher: new Watcher()
 };

@@ -20,6 +20,8 @@ Very simple and cool logger for your [Node.js](https://nodejs.org/) projects. Su
 | ✅ Config file support |
 | ✅ Built-in colors |
 | ✅ Custom logger logic support |
+| ✅ Log file support |
+| ✅ Log event support |
 
 ## Installation
 
@@ -177,7 +179,7 @@ module.exports = {
 3. Use it in your code:
 
 ```js
-const { useLogger } = require('logchu');
+const { useLogger } = require('@tolga1452/logchu');
 
 const myCustomLogger = useLogger('myCustomLogger');
 
@@ -193,4 +195,30 @@ myCustomLogger.info('Hello, world!');
 module.exports = {
     logFile: './logs.txt'
 };
+```
+
+## Log Events
+
+1. Create a file named `logchu.config.js` in your project root.
+2. Add the following code to the file:
+
+```js
+const { Watcher } = require('@tolga1452/logchu');
+
+module.exports = {
+    watcher: new Watcher()
+};
+```
+
+3. Use it in your code:
+
+```js
+const { logger, LogEvent } = require('@tolga1452/logchu');
+const { watcher } = require('./logchu.config');
+
+watcher.on(LogEvent.Info, log => {
+    console.log('Info log event triggered:', log);
+});
+
+logger.info('Hello, world!');
 ```

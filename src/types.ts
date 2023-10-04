@@ -1,4 +1,5 @@
 import { Decimal, Hexadecimal, RGB } from "@tolga1452/toolbox.js";
+import Watcher from "./Watcher";
 
 /**
  * Color presets
@@ -200,6 +201,10 @@ export interface Config {
      * The path to the log file.
      */
     logFile?: string;
+    /**
+     * Whether use a watcher or not.
+     */
+    watcher?: Watcher;
 };
 
 /**
@@ -242,4 +247,13 @@ export interface LogObject {
      * Type of the log
      */
     type: string;
+};
+
+export enum LogEvent {
+    Log = 'log',
+    Info = 'info',
+    Success = 'success',
+    Warning = 'warning',
+    Error = 'error',
+    Debug = 'debug'
 };

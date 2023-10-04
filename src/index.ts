@@ -2,6 +2,7 @@ import { CustomLogger } from './CustomLogger';
 import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType, WriteOptions, CustomLoggerPresetsWithoutLogic } from './types';
 import { Decimal, Hexadecimal, RGB, convertToRGB, randomNumber } from '@tolga1452/toolbox.js';
 import { appendFileSync, existsSync, writeFileSync } from 'node:fs';
+import Watcher from './Watcher';
 
 let config: Config = {
   customColorPresets: {},
@@ -148,13 +149,24 @@ export function log(originalText: string, text: string, type: LogType): void {
     config = {};
   };
 
+  console[getType(type)](text);
+
+  if (config.watcher) {
+    let log = {
+      text: originalText,
+      type,
+      date: new Date()
+    };
+
+    config.watcher.emit('log', log);
+    config.watcher.emit(getType(type), log);
+  };
+
   if (config.logFile) {
     if (!existsSync(config.logFile)) writeFileSync(config.logFile, '');
 
     appendFileSync(config.logFile, `[${new Date().toUTCString()}] ${getType(type).toUpperCase()} > ${originalText}\n`);
   };
-
-  console[getType(type)](text);
 };
 
 export const logger = {
@@ -290,5 +302,6 @@ export {
   Config,
   ConfigCustomColorPresets,
   LogType,
-  WriteOptions
+  WriteOptions,
+  Watcher
 };
