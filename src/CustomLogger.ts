@@ -39,7 +39,7 @@ export class CustomLogger {
                 type: id
             });
             
-            if (!overwrite) logger.custom(text, Object.assign(presetOptions, options ?? {}));
+            if (!overwrite) logger.custom(text, Object.assign(presetOptions as object, options ?? {}));
         });
     };
 };
