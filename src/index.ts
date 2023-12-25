@@ -1,5 +1,5 @@
 import { CustomLogger } from './CustomLogger';
-import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType, WriteOptions, CustomLoggerPresetsWithoutLogic } from './types';
+import { Color, ColorPreset, CustomizeOptions, LogOptions, CustomLoggerPresets, ConfigCustomLoggers, Config, ConfigCustomColorPresets, LogType, WriteOptions, CustomLoggerPresetsWithoutLogic, ConsoleType } from './types';
 import { Decimal, Hexadecimal, RGB, convertToRGB, randomNumber } from '@tolga1452/toolbox.js';
 import { appendFileSync, existsSync, writeFileSync } from 'node:fs';
 import Watcher from './Watcher';
@@ -18,23 +18,23 @@ let configDir: string = `${process.cwd()}/logchu.config.js`;
 export function useLogger(id: string): CustomLogger {
   config = require(configDir).default ?? require(configDir);
 
-  if (!config.customLoggers[id]) throw new Error(`Custom logger ${id} does not exist.`);
+  if (!config.customLoggers?.[id]) throw new Error(`Custom logger ${id} does not exist.`);
 
   for (var customLogger in config.customLoggers) {
     if (typeof config.customLoggers[customLogger] !== 'function') for (var preset in config.customLoggers[customLogger]) {
-      let color: Color = (config.customLoggers[customLogger] as CustomLoggerPresetsWithoutLogic)[preset].color;
+      let color: Color = (config.customLoggers[customLogger] as CustomLoggerPresetsWithoutLogic)[preset].color as Color;
 
       if (typeof color === 'string' && color.startsWith('$custom:')) {
         color = color.split(':')[1] as Color;
 
-        if (!config.customColorPresets[color as string]) throw new Error(`Custom color preset ${color} does not exist.`);
+        if (!config.customColorPresets?.[color as string]) throw new Error(`Custom color preset ${color} does not exist.`);
 
-        (config.customLoggers[customLogger] as CustomLoggerPresetsWithoutLogic)[preset].color = config.customColorPresets[color as string];
+        (config.customLoggers[customLogger] as CustomLoggerPresetsWithoutLogic)[preset].color = config.customColorPresets?.[color as string];
       };
     };
   };
 
-  return new CustomLogger(config.customLoggers[id]);
+  return new CustomLogger(config.customLoggers?.[id] as CustomLoggerPresets);
 };
 
 /**
@@ -45,9 +45,9 @@ export function useLogger(id: string): CustomLogger {
 export function useColor(id: string): Color {
   config = require(configDir);
 
-  if (!config.customColorPresets[id]) throw new Error(`Custom color preset ${id} does not exist.`);
+  if (!config.customColorPresets?.[id]) throw new Error(`Custom color preset ${id} does not exist.`);
 
-  return config.customColorPresets[id];
+  return config.customColorPresets?.[id] as Color;
 };
 
 /**
@@ -57,7 +57,7 @@ export function useColor(id: string): Color {
  * @example
  * getType(LogType.Info);
  */
-export function getType(type: LogType): string {
+export function getType(type: LogType): ConsoleType {
   switch (type) {
     case LogType.Normal:
       return 'log';
@@ -93,6 +93,7 @@ export function fromRGB(rgb: RGB): Color {
 export function getColor(color: Color): Color {
   if (Array.isArray(color)) return fromRGB(color);
   else if ((typeof color === 'string' && color.startsWith('#')) || typeof color === 'number') return fromRGB(convertToRGB(color as Hexadecimal | Decimal));
+  else return undefined as unknown as Color;
 };
 
 /**
@@ -177,7 +178,7 @@ export const logger = {
    * @example
    * log.default('Hello, World', { bold: true });
    */
-  default: (text: string, options?: LogOptions): void => log(text, customize(text, options), LogType.Normal),
+  default: (text: string, options?: LogOptions): void => log(text, customize(text, options as any), LogType.Normal),
   /**
    * Log the text to the console with the given color.
    * @param text The text to log.
@@ -190,8 +191,8 @@ export const logger = {
    * log.custom('Hello, World', { color: ColorPreset.Debug, italic: true });
    */
   custom: (text: string, options?: Color | CustomizeOptions): void => {
-    if (typeof options === 'object') log(text, customize(text, options), (options as CustomizeOptions).type);
-    else log(text, customize(text, options), LogType.Normal);
+    if (typeof options === 'object') log(text, customize(text, options), (options as CustomizeOptions).type as LogType);
+    else log(text, customize(text, options as any), LogType.Normal);
   },
   /**
    * A preset for logging info to the console.

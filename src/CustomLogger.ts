@@ -32,7 +32,7 @@ export class CustomLogger {
         delete presets._logic;
 
         Object.entries(presets).forEach(([id, presetOptions]) => this[id] = (text: string, options?: CustomizeOptions): void => {
-            if (this.#logic) this.#logic({
+            if (this.#logic as any) this.#logic({
                 text,
                 options,
                 date: new Date(),

@@ -161,7 +161,7 @@ export interface CustomizeOptions extends LogOptions {
  */
 export interface CustomLoggerPresets {
     _logic?: (log: LogObject) => void;
-    [name: string]: CustomizeOptions | ((log: LogObject) => void);
+    [name: string]: CustomizeOptions | ((log: LogObject) => void) | undefined;
 };
 
 /**
@@ -257,3 +257,5 @@ export enum LogEvent {
     Error = 'error',
     Debug = 'debug'
 };
+
+export type ConsoleType = 'log' | 'info' | 'warn' | 'error' | 'debug';
